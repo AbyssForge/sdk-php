@@ -1,0 +1,38 @@
+{
+    "description": "Importable OpenAPI document for the current AbyssForge HTTP boundary.  Current implemented routes: - GET /healthz - GET /livez - GET /readyz - POST /v1/signal-events - GET /v1/outcome-analysis - GET /v1/subjects/{subject_id}/latest-evaluation - GET /v1/subjects/{subject_id}/signal-events - GET /v1/subjects/{subject_id}/evaluations - GET /v1/subjects/{subject_id}/investigation - POST /v1/subjects/{subject_id}/review-outcomes - POST /v1/subjects/{subject_id}/recompute - POST /v1/subjects/{subject_id}/ruleset-comparisons",
+    "keywords": [
+        "openapitools",
+        "openapi-generator",
+        "openapi",
+        "php",
+        "sdk",
+        "rest",
+        "api"
+    ],
+    "homepage": "https://openapi-generator.tech",
+    "license": "unlicense",
+    "authors": [
+        {
+            "name": "OpenAPI",
+            "homepage": "https://openapi-generator.tech"
+        }
+    ],
+    "require": {
+        "php": "^8.1",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "guzzlehttp/guzzle": "^7.3",
+        "guzzlehttp/psr7": "^1.7 || ^2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0 || ^9.0",
+        "friendsofphp/php-cs-fixer": "^3.5"
+    },
+    "autoload": {
+        "psr-4": { "AbyssForge\\" : "src/" }
+    },
+    "autoload-dev": {
+        "psr-4": { "AbyssForge\\Test\\" : "test/" }
+    }
+}

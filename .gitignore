@@ -1,0 +1,9 @@
+vendor/
+composer.lock
+
+# PHPUnit
+.phpunit.result.cache
+coverage/
+
+# OS
+.DS_Store
