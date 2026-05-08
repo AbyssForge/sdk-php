@@ -69,6 +69,7 @@ final class ApiError extends \RuntimeException
         return new self($statusCode, $reason, $rejections);
     }
 
+    // BEGIN generated:openapi-error-predicates
     public static function isAuthentication(Throwable $error): bool
     {
         return self::statusCodeFromThrowable($error) === 401;
@@ -88,6 +89,7 @@ final class ApiError extends \RuntimeException
     {
         return self::statusCodeFromThrowable($error) === 404;
     }
+    // END generated:openapi-error-predicates
 
     private static function statusCodeFromThrowable(Throwable $error): int
     {

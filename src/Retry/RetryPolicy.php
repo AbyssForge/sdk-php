@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace AbyssForgeSdk\Retry;
 
+// BEGIN generated:retry-policy-class
 final class RetryPolicy
 {
     public function __construct(
@@ -14,3 +15,4 @@ final class RetryPolicy
     ) {
     }
 }
+// END generated:retry-policy-class

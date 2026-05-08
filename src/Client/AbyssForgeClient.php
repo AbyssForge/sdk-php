@@ -13,6 +13,7 @@ use AbyssForge\Model\ReviewOutcomeWriteRequest;
 use AbyssForge\Model\RulesetComparisonRequest;
 use AbyssForge\Model\SubjectRecomputeRequest;
 use AbyssForgeSdk\Auth\BearerToken;
+use AbyssForgeSdk\Auth\OAuth2ClientCredentials;
 
 final class AbyssForgeClient
 {
@@ -39,9 +40,47 @@ final class AbyssForgeClient
         return new self($cfg, $httpClient);
     }
 
-    public function ingestSignal(RawSignalEventPayload $payload): mixed
+    /** @param list<string> $scopes */
+    public static function fromClientCredentials(
+        string $baseUrl,
+        string $tokenUrl,
+        string $clientId,
+        string $clientSecret,
+        array $scopes = [],
+        string $audience = ''
+    ): self {
+        $oauth = new OAuth2ClientCredentials($tokenUrl, $clientId, $clientSecret, $scopes, $audience);
+        $cfg = Configuration::getDefaultConfiguration();
+        $cfg->setHost($baseUrl);
+
+        return new self($cfg, $oauth->createAuthenticatedHttpClient());
+    }
+
+    // BEGIN generated:client-env-factory
+    public static function fromEnv($httpClient = null): self
     {
-        return $this->signals->postSignalEvent($payload);
+        $baseUrl = (string) getenv("ABYSSFORGE_BASE_URL");
+        $token = (string) getenv("ABYSSFORGE_TOKEN");
+        if ($baseUrl === '') {
+            throw new \RuntimeException("ABYSSFORGE_BASE_URL is not set");
+        }
+        if ($token === '') {
+            throw new \RuntimeException("ABYSSFORGE_TOKEN is not set");
+        }
+
+        return self::fromBearerToken($baseUrl, $token, $httpClient);
+    }
+    // END generated:client-env-factory
+
+    // BEGIN generated:openapi-wrapper-methods
+    public function compareRuleset(string $subjectId, RulesetComparisonRequest $request): mixed
+    {
+        return $this->evaluations->compareSubjectRuleset($subjectId, $request);
+    }
+
+    public function healthz(): mixed
+    {
+        return $this->system->getHealthz();
     }
 
     public function getLatestEvaluation(string $subjectId): mixed
@@ -49,34 +88,9 @@ final class AbyssForgeClient
         return $this->evaluations->getLatestSubjectEvaluation($subjectId);
     }
 
-    public function listSignalEvents(string $subjectId): mixed
+    public function livez(): mixed
     {
-        return $this->signals->listSubjectSignalEvents($subjectId);
-    }
-
-    public function listEvaluations(string $subjectId): mixed
-    {
-        return $this->evaluations->listSubjectEvaluations($subjectId);
-    }
-
-    public function getInvestigation(string $subjectId): mixed
-    {
-        return $this->evaluations->getSubjectInvestigation($subjectId);
-    }
-
-    public function recordReviewOutcome(string $subjectId, ReviewOutcomeWriteRequest $request): mixed
-    {
-        return $this->evaluations->postSubjectReviewOutcome($subjectId, $request);
-    }
-
-    public function recompute(string $subjectId, ?SubjectRecomputeRequest $request = null): mixed
-    {
-        return $this->evaluations->recomputeSubject($subjectId, $request);
-    }
-
-    public function compareRuleset(string $subjectId, RulesetComparisonRequest $request): mixed
-    {
-        return $this->evaluations->compareSubjectRuleset($subjectId, $request);
+        return $this->system->getLivez();
     }
 
     /**
@@ -91,13 +105,39 @@ final class AbyssForgeClient
         return $this->evaluations->getOutcomeAnalysis($subjectId, $recommendationType, $reviewLabel);
     }
 
-    public function healthz(): mixed
-    {
-        return $this->system->getHealthz();
-    }
-
     public function readyz(): mixed
     {
         return $this->system->getReadyz();
     }
+
+    public function getInvestigation(string $subjectId): mixed
+    {
+        return $this->evaluations->getSubjectInvestigation($subjectId);
+    }
+
+    public function listEvaluations(string $subjectId): mixed
+    {
+        return $this->evaluations->listSubjectEvaluations($subjectId);
+    }
+
+    public function listSignalEvents(string $subjectId): mixed
+    {
+        return $this->signals->listSubjectSignalEvents($subjectId);
+    }
+
+    public function ingestSignal(RawSignalEventPayload $payload): mixed
+    {
+        return $this->signals->postSignalEvent($payload);
+    }
+
+    public function recordReviewOutcome(string $subjectId, ReviewOutcomeWriteRequest $request): mixed
+    {
+        return $this->evaluations->postSubjectReviewOutcome($subjectId, $request);
+    }
+
+    public function recompute(string $subjectId, ?SubjectRecomputeRequest $request = null): mixed
+    {
+        return $this->evaluations->recomputeSubject($subjectId, $request);
+    }
+    // END generated:openapi-wrapper-methods
 }

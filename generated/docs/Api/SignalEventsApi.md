@@ -27,11 +27,15 @@ Returns the canonical signal events that were accepted for the subject. This mak
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SignalEventsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 
@@ -55,7 +59,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -83,11 +87,15 @@ Accepts one raw detector payload, validates and normalizes it into a canonical `
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SignalEventsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $raw_signal_event_payload = {"subject_id":"acct_12345","producer":"interval-detector","producer_event_id":"det-884221","signal_type":"consistent-action-interval","occurred_at":"2026-03-07T11:45:00Z","severity":"high","confidence":0.92,"value":0.98,"unit":"regularity_score","correlation_ids":["sess_789","match_456"],"attributes":{"platform":"pc","environment":"prod"}}; // \AbyssForge\Model\RawSignalEventPayload
 
@@ -111,7 +119,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 

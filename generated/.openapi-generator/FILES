@@ -7,6 +7,8 @@ docs/Api/SignalEventsApi.md
 docs/Api/SubjectEvaluationsApi.md
 docs/Api/SystemApi.md
 docs/Model/ArtifactRef.md
+docs/Model/AuthenticationError.md
+docs/Model/AuthorizationError.md
 docs/Model/EvaluationResult.md
 docs/Model/EvaluationRun.md
 docs/Model/EvidenceRef.md
@@ -58,6 +60,8 @@ src/Configuration.php
 src/FormDataProcessor.php
 src/HeaderSelector.php
 src/Model/ArtifactRef.php
+src/Model/AuthenticationError.php
+src/Model/AuthorizationError.php
 src/Model/EvaluationResult.php
 src/Model/EvaluationRun.php
 src/Model/EvidenceRef.php

@@ -32,11 +32,15 @@ Replays the subject under a candidate score ruleset version, persists the candid
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 $ruleset_comparison_request = new \AbyssForge\Model\RulesetComparisonRequest(); // \AbyssForge\Model\RulesetComparisonRequest
@@ -62,7 +66,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -90,11 +94,15 @@ Returns the latest persisted feature snapshot, score result, recommendation, and
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 
@@ -118,7 +126,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -146,11 +154,15 @@ Returns a structured read model that compares persisted recommendations with lat
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string
 $recommendation_type = 'recommendation_type_example'; // string
@@ -178,7 +190,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -206,11 +218,15 @@ Returns the current inspectable investigation artifacts for a subject, including
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 
@@ -234,7 +250,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -262,11 +278,15 @@ Returns the subject's persisted evaluation history, including replayed results a
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 
@@ -290,7 +310,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -318,11 +338,15 @@ Records one append-only `ReviewOutcome` against a persisted subject `Recommendat
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 $review_outcome_write_request = {"reviewed_object":{"kind":"recommendation","id":"rec_acct_12345_score_acct_12345_score_v1_20260307120100_20260307120100"},"reviewer":"operator@example","label":"false_positive","notes":"manual review confirmed detector noise","disposition":"no_external_action"}; // \AbyssForge\Model\ReviewOutcomeWriteRequest
@@ -348,7 +372,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 
@@ -376,11 +400,15 @@ Rebuilds the subject's feature snapshot, score result, and recommendation from s
 require_once(__DIR__ . '/vendor/autoload.php');
 
 
+// Configure Bearer (JWT) authorization: BearerToken
+$config = AbyssForge\Configuration::getDefaultConfiguration()->setAccessToken('YOUR_ACCESS_TOKEN');
+
 
 $apiInstance = new AbyssForge\Api\SubjectEvaluationsApi(
     // If you want use custom http client, pass your client which implements `GuzzleHttp\ClientInterface`.
     // This is optional, `GuzzleHttp\Client` will be used as default.
-    new GuzzleHttp\Client()
+    new GuzzleHttp\Client(),
+    $config
 );
 $subject_id = 'subject_id_example'; // string | Canonical account identifier for the scored subject
 $subject_recompute_request = new \AbyssForge\Model\SubjectRecomputeRequest(); // \AbyssForge\Model\SubjectRecomputeRequest
@@ -406,7 +434,7 @@ try {
 
 ### Authorization
 
-No authorization required
+[BearerToken](../../README.md#BearerToken)
 
 ### HTTP request headers
 

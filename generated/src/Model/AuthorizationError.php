@@ -1,6 +1,6 @@
 <?php
 /**
- * ScoreExplanation
+ * AuthorizationError
  *
  * PHP version 8.1
  *
@@ -32,15 +32,16 @@ use \ArrayAccess;
 use \AbyssForge\ObjectSerializer;
 
 /**
- * ScoreExplanation Class Doc Comment
+ * AuthorizationError Class Doc Comment
  *
  * @category Class
+ * @description Authorization failure response returned when the bearer token is valid but does not have the required scopes (403 Forbidden).  Runtime challenge example: - &#x60;WWW-Authenticate: Bearer realm&#x3D;\&quot;abyssforge\&quot;, error&#x3D;\&quot;insufficient_scope\&quot;, scope&#x3D;\&quot;&lt;required_scope&gt;\&quot;&#x60;
  * @package  AbyssForge
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
+class AuthorizationError implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -49,7 +50,7 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
       *
       * @var string
       */
-    protected static $openAPIModelName = 'ScoreExplanation';
+    protected static $openAPIModelName = 'AuthorizationError';
 
     /**
       * Array of property to type mappings. Used for (de)serialization
@@ -57,9 +58,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var string[]
       */
     protected static $openAPITypes = [
-        'summary' => 'string',
-        'rules' => '\AbyssForge\Model\ExplanationRule[]',
-        'features' => '\AbyssForge\Model\ExplanationFeature[]'
+        'status' => 'string',
+        'reason' => 'string',
+        'rejection_reasons' => '\AbyssForge\Model\RejectionReason[]',
+        'correlation_id' => 'string'
     ];
 
     /**
@@ -70,9 +72,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
       * @psalm-var array<string, string|null>
       */
     protected static $openAPIFormats = [
-        'summary' => null,
-        'rules' => null,
-        'features' => null
+        'status' => null,
+        'reason' => null,
+        'rejection_reasons' => null,
+        'correlation_id' => null
     ];
 
     /**
@@ -81,9 +84,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
       * @var boolean[]
       */
     protected static array $openAPINullables = [
-        'summary' => false,
-        'rules' => false,
-        'features' => false
+        'status' => false,
+        'reason' => false,
+        'rejection_reasons' => false,
+        'correlation_id' => false
     ];
 
     /**
@@ -172,9 +176,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $attributeMap = [
-        'summary' => 'summary',
-        'rules' => 'rules',
-        'features' => 'features'
+        'status' => 'status',
+        'reason' => 'reason',
+        'rejection_reasons' => 'rejection_reasons',
+        'correlation_id' => 'correlation_id'
     ];
 
     /**
@@ -183,9 +188,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $setters = [
-        'summary' => 'setSummary',
-        'rules' => 'setRules',
-        'features' => 'setFeatures'
+        'status' => 'setStatus',
+        'reason' => 'setReason',
+        'rejection_reasons' => 'setRejectionReasons',
+        'correlation_id' => 'setCorrelationId'
     ];
 
     /**
@@ -194,9 +200,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
      * @var string[]
      */
     protected static $getters = [
-        'summary' => 'getSummary',
-        'rules' => 'getRules',
-        'features' => 'getFeatures'
+        'status' => 'getStatus',
+        'reason' => 'getReason',
+        'rejection_reasons' => 'getRejectionReasons',
+        'correlation_id' => 'getCorrelationId'
     ];
 
     /**
@@ -240,6 +247,32 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
         return self::$openAPIModelName;
     }
 
+    public const STATUS_REJECTED = 'rejected';
+    public const REASON_AUTHORIZATION_FAILED = 'authorization_failed';
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getStatusAllowableValues()
+    {
+        return [
+            self::STATUS_REJECTED,
+        ];
+    }
+
+    /**
+     * Gets allowable values of the enum
+     *
+     * @return string[]
+     */
+    public function getReasonAllowableValues()
+    {
+        return [
+            self::REASON_AUTHORIZATION_FAILED,
+        ];
+    }
 
     /**
      * Associative array for storing property values
@@ -256,9 +289,10 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
      */
     public function __construct(?array $data = null)
     {
-        $this->setIfExists('summary', $data ?? [], null);
-        $this->setIfExists('rules', $data ?? [], null);
-        $this->setIfExists('features', $data ?? [], null);
+        $this->setIfExists('status', $data ?? [], null);
+        $this->setIfExists('reason', $data ?? [], null);
+        $this->setIfExists('rejection_reasons', $data ?? [], null);
+        $this->setIfExists('correlation_id', $data ?? [], null);
     }
 
     /**
@@ -288,9 +322,45 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
     {
         $invalidProperties = [];
 
-        if ($this->container['summary'] === null) {
-            $invalidProperties[] = "'summary' can't be null";
+        if ($this->container['status'] === null) {
+            $invalidProperties[] = "'status' can't be null";
         }
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!is_null($this->container['status']) && !in_array($this->container['status'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'status', must be one of '%s'",
+                $this->container['status'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if ($this->container['reason'] === null) {
+            $invalidProperties[] = "'reason' can't be null";
+        }
+        $allowedValues = $this->getReasonAllowableValues();
+        if (!is_null($this->container['reason']) && !in_array($this->container['reason'], $allowedValues, true)) {
+            $invalidProperties[] = sprintf(
+                "invalid value '%s' for 'reason', must be one of '%s'",
+                $this->container['reason'],
+                implode("', '", $allowedValues)
+            );
+        }
+
+        if ($this->container['rejection_reasons'] === null) {
+            $invalidProperties[] = "'rejection_reasons' can't be null";
+        }
+        if ((count($this->container['rejection_reasons']) < 1)) {
+            $invalidProperties[] = "invalid value for 'rejection_reasons', number of items must be greater than or equal to 1.";
+        }
+
+        if (!is_null($this->container['correlation_id']) && (mb_strlen($this->container['correlation_id']) > 128)) {
+            $invalidProperties[] = "invalid value for 'correlation_id', the character length must be smaller than or equal to 128.";
+        }
+
+        if (!is_null($this->container['correlation_id']) && (mb_strlen($this->container['correlation_id']) < 1)) {
+            $invalidProperties[] = "invalid value for 'correlation_id', the character length must be bigger than or equal to 1.";
+        }
+
         return $invalidProperties;
     }
 
@@ -307,82 +377,141 @@ class ScoreExplanation implements ModelInterface, ArrayAccess, \JsonSerializable
 
 
     /**
-     * Gets summary
+     * Gets status
      *
      * @return string
      */
-    public function getSummary()
+    public function getStatus()
     {
-        return $this->container['summary'];
+        return $this->container['status'];
     }
 
     /**
-     * Sets summary
+     * Sets status
      *
-     * @param string $summary summary
+     * @param string $status status
      *
      * @return self
      */
-    public function setSummary($summary)
+    public function setStatus($status)
     {
-        if (is_null($summary)) {
-            throw new \InvalidArgumentException('non-nullable summary cannot be null');
+        if (is_null($status)) {
+            throw new \InvalidArgumentException('non-nullable status cannot be null');
         }
-        $this->container['summary'] = $summary;
+        $allowedValues = $this->getStatusAllowableValues();
+        if (!in_array($status, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'status', must be one of '%s'",
+                    $status,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['status'] = $status;
 
         return $this;
     }
 
     /**
-     * Gets rules
+     * Gets reason
      *
-     * @return \AbyssForge\Model\ExplanationRule[]|null
+     * @return string
      */
-    public function getRules()
+    public function getReason()
     {
-        return $this->container['rules'];
+        return $this->container['reason'];
     }
 
     /**
-     * Sets rules
+     * Sets reason
      *
-     * @param \AbyssForge\Model\ExplanationRule[]|null $rules rules
+     * @param string $reason reason
      *
      * @return self
      */
-    public function setRules($rules)
+    public function setReason($reason)
     {
-        if (is_null($rules)) {
-            throw new \InvalidArgumentException('non-nullable rules cannot be null');
+        if (is_null($reason)) {
+            throw new \InvalidArgumentException('non-nullable reason cannot be null');
         }
-        $this->container['rules'] = $rules;
+        $allowedValues = $this->getReasonAllowableValues();
+        if (!in_array($reason, $allowedValues, true)) {
+            throw new \InvalidArgumentException(
+                sprintf(
+                    "Invalid value '%s' for 'reason', must be one of '%s'",
+                    $reason,
+                    implode("', '", $allowedValues)
+                )
+            );
+        }
+        $this->container['reason'] = $reason;
 
         return $this;
     }
 
     /**
-     * Gets features
+     * Gets rejection_reasons
      *
-     * @return \AbyssForge\Model\ExplanationFeature[]|null
+     * @return \AbyssForge\Model\RejectionReason[]
      */
-    public function getFeatures()
+    public function getRejectionReasons()
     {
-        return $this->container['features'];
+        return $this->container['rejection_reasons'];
     }
 
     /**
-     * Sets features
+     * Sets rejection_reasons
      *
-     * @param \AbyssForge\Model\ExplanationFeature[]|null $features features
+     * @param \AbyssForge\Model\RejectionReason[] $rejection_reasons rejection_reasons
      *
      * @return self
      */
-    public function setFeatures($features)
+    public function setRejectionReasons($rejection_reasons)
     {
-        if (is_null($features)) {
-            throw new \InvalidArgumentException('non-nullable features cannot be null');
+        if (is_null($rejection_reasons)) {
+            throw new \InvalidArgumentException('non-nullable rejection_reasons cannot be null');
         }
-        $this->container['features'] = $features;
+
+
+        if ((count($rejection_reasons) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $rejection_reasons when calling AuthorizationError., number of items must be greater than or equal to 1.');
+        }
+        $this->container['rejection_reasons'] = $rejection_reasons;
+
+        return $this;
+    }
+
+    /**
+     * Gets correlation_id
+     *
+     * @return string|null
+     */
+    public function getCorrelationId()
+    {
+        return $this->container['correlation_id'];
+    }
+
+    /**
+     * Sets correlation_id
+     *
+     * @param string|null $correlation_id Request correlation identifier echoed in the `X-Correlation-ID` header and JSON error payloads.
+     *
+     * @return self
+     */
+    public function setCorrelationId($correlation_id)
+    {
+        if (is_null($correlation_id)) {
+            throw new \InvalidArgumentException('non-nullable correlation_id cannot be null');
+        }
+        if ((mb_strlen($correlation_id) > 128)) {
+            throw new \InvalidArgumentException('invalid length for $correlation_id when calling AuthorizationError., must be smaller than or equal to 128.');
+        }
+        if ((mb_strlen($correlation_id) < 1)) {
+            throw new \InvalidArgumentException('invalid length for $correlation_id when calling AuthorizationError., must be bigger than or equal to 1.');
+        }
+
+        $this->container['correlation_id'] = $correlation_id;
 
         return $this;
     }
